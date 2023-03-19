@@ -7,5 +7,5 @@ import retrofit2.Response
 
 interface AuthRepository {
     suspend fun signIn(body: SignInDto): Response<ResponseDto>? = null
-    suspend fun sinUp(body: RegisterDto): Response<ResponseDto>? = null
+    suspend fun signUp(body: RegisterDto): Response<ResponseDto>? = null
 }

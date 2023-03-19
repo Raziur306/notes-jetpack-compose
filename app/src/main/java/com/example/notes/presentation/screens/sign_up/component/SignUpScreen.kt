@@ -1,4 +1,4 @@
-package com.example.notes.presentation.screens.sign_in.component
+package com.example.notes.presentation.screens.sign_up.component
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -24,15 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.notes.presentation.screens.sign_in.SignInViewModel
+import com.example.notes.presentation.screens.sign_in.component.SignInComponent
+import com.example.notes.presentation.screens.sign_up.SIgnUpVIewModel
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInScreen(
-    viewModel: SignInViewModel = hiltViewModel(),
+fun SignUpScreen(
+    viewModel: SIgnUpVIewModel = hiltViewModel(),
     loading: (Boolean) -> Unit,
-    signUpClick: () -> Unit,
-    signInSuccess: () -> Unit,
+    signInClick: () -> Unit,
+    signUpSuccess: () -> Unit,
 ) {
 
     val state = viewModel.state
@@ -47,7 +47,7 @@ fun SignInScreen(
 
     //signIn successful
     if (state.value.data?.response == true) {
-        signInSuccess()
+        signUpSuccess()
         Toast.makeText(context, state.value.data!!.message, Toast.LENGTH_SHORT).show()
     }
 
@@ -61,18 +61,18 @@ fun SignInScreen(
 
         ) {
         Spacer(modifier = Modifier.height(80.dp))
-        Text(text = "Welcome Back", fontSize = 26.sp, fontWeight = FontWeight.Bold)
+        Text(text = "Hey! Welcome", fontSize = 26.sp, fontWeight = FontWeight.Bold)
 
         Text(
-            text = "Sign in with your email or password\nor create a new account.",
+            text = "Sign up with your email or password\nor login with your existing account.",
             textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(130.dp))
 
         //sign in component
-        SignInComponent(onSignInClick = { email, password, isChecked ->
-            viewModel.signIn(email, password)
+        SignUpComponent(onSignUpClick = { name, email, password ->
+            viewModel.signUp(name, email, password)
         })
 
 
@@ -82,12 +82,12 @@ fun SignInScreen(
                 .padding(top = 30.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Don't have an account? ")
+            Text(text = "Already have an account? ")
             Text(
-                text = "Sign Up",
+                text = "Sign in",
                 color = Color.Cyan,
                 modifier = Modifier.clickable {
-                    signUpClick()
+                    signInClick()
                 })
         }
     }
@@ -105,5 +105,3 @@ fun SignInScreen(
 
 
 }
-
-

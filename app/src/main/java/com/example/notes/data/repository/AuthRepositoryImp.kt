@@ -13,7 +13,7 @@ class AuthRepositoryImp @Inject constructor(private val api: Api) : AuthReposito
         return api.login(body)
     }
 
-    override suspend fun sinUp(body: RegisterDto): Response<ResponseDto> {
+    override suspend fun signUp(body: RegisterDto): Response<ResponseDto> {
         return api.register(body)
     }
 }
