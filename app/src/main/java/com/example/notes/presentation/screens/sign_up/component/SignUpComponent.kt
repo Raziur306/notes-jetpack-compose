@@ -101,7 +101,7 @@ fun SignUpComponent(
                 .fillMaxWidth()
 
         ) {
-            Text("Sign in")
+            Text("Sign up")
         }
 
     }

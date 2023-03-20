@@ -75,22 +75,8 @@ fun SignUpScreen(
             viewModel.signUp(name, email, password)
         })
 
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 30.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Already have an account? ")
-            Text(
-                text = "Sign in",
-                color = Color.Cyan,
-                modifier = Modifier.clickable {
-                    signInClick()
-                })
-        }
     }
+
 
 //    progressbar
     if (state.value.isLoading) {
@@ -102,6 +88,5 @@ fun SignUpScreen(
             CircularProgressIndicator()
         }
     }
-
 
 }
