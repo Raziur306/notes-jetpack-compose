@@ -23,8 +23,12 @@ class SignUpUseCase @Inject constructor(private val authRepository: AuthReposito
 
             } else if (response.errorBody() != null) {
 
-                val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
-                emit(NetworkResponse.Error(errorObj.getString("message")))
+                try {
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    emit(NetworkResponse.Error(jsonObj.getString("message").toString()))
+                } catch (e: Exception) {
+                    emit(NetworkResponse.Error("Something went wrong."))
+                }
 
             } else {
                 emit(NetworkResponse.Error("Something went wrong"))
