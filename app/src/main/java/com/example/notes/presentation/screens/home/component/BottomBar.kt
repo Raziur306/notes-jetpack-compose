@@ -1,4 +1,4 @@
-package com.example.notes.presentation.screens.navigation.component
+package com.example.notes.presentation.screens.home.component
 
 
 import androidx.compose.material.icons.Icons
