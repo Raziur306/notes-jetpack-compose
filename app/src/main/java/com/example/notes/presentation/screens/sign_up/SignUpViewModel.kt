@@ -6,16 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notes.common.NetworkResponse
 import com.example.notes.data.remote.dto.RegisterDto
-import com.example.notes.data.remote.dto.SignInDto
 import com.example.notes.domain.use_case.sign_up.SignUpUseCase
-import com.example.notes.presentation.screens.sign_in.SignInState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class SIgnUpVIewModel @Inject constructor(private val signUpUseCase: SignUpUseCase) : ViewModel() {
+class SignUpViewModel @Inject constructor(private val signUpUseCase: SignUpUseCase) : ViewModel() {
 
     private val _state = mutableStateOf(SignUpState())
     val state: State<SignUpState> = _state
