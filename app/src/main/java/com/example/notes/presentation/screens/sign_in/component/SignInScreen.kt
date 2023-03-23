@@ -1,6 +1,7 @@
 package com.example.notes.presentation.screens.sign_in.component
 
-import android.widget.Toast
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,10 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,34 +25,38 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.notes.data.remote.dto.ResponseDto
+import com.example.notes.presentation.common.component.Toast
+import com.example.notes.presentation.graphs.auth.AuthScreen
+import com.example.notes.presentation.screens.sign_in.SignInState
 import com.example.notes.presentation.screens.sign_in.SignInViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     loading: (Boolean) -> Unit,
     signUpClick: () -> Unit,
-    signInSuccess: () -> Unit,
+    signInSuccess: () -> Unit
 ) {
+    val context: Context = LocalContext.current
+    val state: SignInState by viewModel.state.collectAsState()
+    val data: ResponseDto? = state.data
 
-    val state = viewModel.state
-    val context = LocalContext.current
-    //screen touch flag
-    loading(state.value.isLoading)
+    Log.d("Screen Render", "Rendering............")
 
-    //error message
-    if (state.value.errorMessage != null && state.value.errorMessage!!.isNotEmpty()) {
-        Toast.makeText(context, state.value.errorMessage, Toast.LENGTH_SHORT).show()
+//error message
+    if (!state.errorMessage.isNullOrEmpty()) {
+        Toast(message = state.errorMessage.toString())
     }
 
-    //signIn successful
-    if (state.value.data?.response == true) {
-        signInSuccess()
-        Toast.makeText(context, state.value.data!!.message, Toast.LENGTH_SHORT).show()
+    if (data != null && data.response) {
+        LaunchedEffect(Unit) {
+            signInSuccess()
+        }
+        Toast(message =data.message ?: "Something went wrong")
     }
-
 
     //component
     Column(
@@ -62,7 +68,6 @@ fun SignInScreen(
         ) {
         Spacer(modifier = Modifier.height(80.dp))
         Text(text = "Welcome Back", fontSize = 26.sp, fontWeight = FontWeight.Bold)
-
         Text(
             text = "Sign in with your email or password\nor create a new account.",
             textAlign = TextAlign.Center
@@ -70,11 +75,10 @@ fun SignInScreen(
 
         Spacer(modifier = Modifier.height(130.dp))
 
-        //sign in component
+//sign in component
         SignInComponent(onSignInClick = { email, password, isChecked ->
             viewModel.signIn(email, password)
         })
-
 
         Row(
             modifier = Modifier
@@ -92,18 +96,11 @@ fun SignInScreen(
         }
     }
 
-//    progressbar
-    if (state.value.isLoading) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator()
-        }
+//progressbar
+    if (state.isLoading) {
+        LoadingComponent()
+        loading(true)
+    } else {
+        loading(false)
     }
-
-
 }
-
-
