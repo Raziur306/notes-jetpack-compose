@@ -5,9 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.example.notes.presentation.graphs.auth.authNavGraph
 import com.example.notes.presentation.graphs.notes.notesNavGraph
-
+import com.example.notes.presentation.screens.home.component.HomeScreen
 
 
 @Composable
@@ -18,6 +19,8 @@ fun RootNavigationGraph(navHostController: NavHostController, context: Context) 
         startDestination = Graph.AUTHENTICATION
     ) {
         authNavGraph(navHostController, context)
-        notesNavGraph(navHostController)
+        composable(route = Graph.HOME) {
+            HomeScreen()
+        }
     }
 }
