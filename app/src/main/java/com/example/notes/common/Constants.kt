@@ -5,4 +5,9 @@ object Constants {
     const val NOTE_BODY_PARAM = "noteBody"
     const val NOTE_TITLE_PARAM = "noteTitle"
     const val NOTE_ID_PARAM = "noteId"
+
+
+    //shared pref
+    const val AUTH_TOKEN = "token"
+    const val BEARER = "Bearer "
 }
