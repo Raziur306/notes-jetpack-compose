@@ -1,7 +1,6 @@
 package com.example.notes.presentation.screens.sign_in.component
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,10 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.example.notes.data.remote.dto.ResponseDto
+import com.example.notes.data.repository.model.AuthModel
 import com.example.notes.presentation.common.component.Toast
-import com.example.notes.presentation.graphs.auth.AuthScreen
 import com.example.notes.presentation.screens.sign_in.SignInState
 import com.example.notes.presentation.screens.sign_in.SignInViewModel
 
@@ -42,10 +39,7 @@ fun SignInScreen(
 ) {
     val context: Context = LocalContext.current
     val state: SignInState by viewModel.state.collectAsState()
-    val data: ResponseDto? = state.data
-
-    Log.d("Screen Render", "Rendering............")
-
+    val data: AuthModel? = state.data
 //error message
     if (!state.errorMessage.isNullOrEmpty()) {
         Toast(message = state.errorMessage.toString())
@@ -98,7 +92,7 @@ fun SignInScreen(
 
 //progressbar
     if (state.isLoading) {
-        LoadingComponent()
+        LoadingProgress()
         loading(true)
     } else {
         loading(false)

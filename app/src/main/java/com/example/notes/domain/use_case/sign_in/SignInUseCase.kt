@@ -1,9 +1,8 @@
 package com.example.notes.domain.use_case.sign_in
 
-import android.util.Log
 import com.example.notes.common.NetworkResponse
-import com.example.notes.data.remote.dto.ResponseDto
 import com.example.notes.data.remote.dto.SignInDto
+import com.example.notes.data.repository.model.AuthModel
 import com.example.notes.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,7 +12,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(private val authRepository: AuthRepository) {
-    operator fun invoke(signInDto: SignInDto): Flow<NetworkResponse<ResponseDto>> = flow {
+    operator fun invoke(signInDto: SignInDto): Flow<NetworkResponse<AuthModel>> = flow {
         try {
             emit(NetworkResponse.Loading())
             val response = authRepository.signIn(signInDto)

@@ -1,25 +1,26 @@
 package com.example.notes.presentation.screens.sign_in
 
-import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notes.common.NetworkResponse
+import com.example.notes.common.Preferences
 import com.example.notes.data.remote.dto.SignInDto
 import com.example.notes.domain.use_case.sign_in.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCase) : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val signInUseCase: SignInUseCase,
+    private val preferences: Preferences
+) : ViewModel() {
 
-    private val _state = mutableStateOf(SignInState())
-    val state: State<SignInState> = _state
+    private val _state = MutableStateFlow(SignInState())
+    val state: StateFlow<SignInState> get() = _state
 
     fun signIn(email: String, password: String) {
         val body = SignInDto(email, password);
@@ -30,6 +31,7 @@ class SignInViewModel @Inject constructor(private val signInUseCase: SignInUseCa
                 }
 
                 is NetworkResponse.Success -> {
+                    preferences.saveToken(result.data!!.token)
                     _state.value = SignInState(data = result.data)
                 }
 
