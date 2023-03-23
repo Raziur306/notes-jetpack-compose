@@ -1,23 +1,19 @@
 package com.example.notes.presentation.graphs.auth
 
-import android.app.ActionBar.LayoutParams
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.notes.presentation.graphs.Graph
-import com.example.notes.presentation.graphs.notes.NotesScreen
-import com.example.notes.presentation.screens.sign_in.SignInViewModel
 import com.example.notes.presentation.screens.sign_in.component.SignInScreen
 import com.example.notes.presentation.screens.sign_up.component.SignUpScreen
 
 fun NavGraphBuilder.authNavGraph(navController: NavController, context: Context) {
-    navigation(route = Graph.AUTHENTICATION, startDestination = AuthScreen.SignInScreen.route) {
-        composable(route = AuthScreen.SignInScreen.route) {
+    navigation(route = Graph.AUTHENTICATION, startDestination = AuthRoutes.SignInScreen.route) {
+        composable(route = AuthRoutes.SignInScreen.route) {
             SignInScreen(loading = { isLoading ->
                 if (isLoading) {
                     (context as Activity).window.setFlags(
@@ -32,7 +28,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavController, context: Context)
                 }
             },
                 signUpClick = {
-                    navController.navigate(AuthScreen.SignUpScreen.route)
+                    navController.navigate(AuthRoutes.SignUpScreen.route)
                 },
                 signInSuccess = {
                     (context as Activity).window.clearFlags(
@@ -42,10 +38,10 @@ fun NavGraphBuilder.authNavGraph(navController: NavController, context: Context)
                     navController.navigate(Graph.HOME)
                 })
         }
-        composable(route = AuthScreen.SignUpScreen.route) {
+        composable(route = AuthRoutes.SignUpScreen.route) {
             SignUpScreen(signUpSuccess = {
                 navController.popBackStack()
-                navController.navigate(AuthScreen.SignInScreen.route)
+                navController.navigate(AuthRoutes.SignInScreen.route)
             },
                 loading = { isLoading ->
                     if (isLoading) {

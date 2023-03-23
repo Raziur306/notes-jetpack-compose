@@ -2,7 +2,6 @@ package com.example.notes.domain.repository
 
 import com.example.notes.data.remote.dto.CreateNoteDto
 import com.example.notes.data.remote.dto.NoteDto
-import com.example.notes.data.remote.dto.ResponseDto
 import com.example.notes.data.remote.dto.UpdateNoteDto
 import retrofit2.Response
 
