@@ -7,6 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import androidx.security.crypto.MasterKey
 import com.example.notes.common.Constants.AUTH_TOKEN
+import com.example.notes.common.Constants.REMEMBER_USER
 
 
 @Singleton
@@ -25,14 +26,25 @@ class Preferences @Inject constructor(@ApplicationContext context: Context) {
 
     private var editor = sharedPreferences.edit()
 
-    suspend fun saveToken(token: String) {
+    fun saveToken(token: String) {
         editor.putString(AUTH_TOKEN, token)
         editor.commit()
         editor.apply()
     }
 
-    suspend fun getToken(): String? {
+    fun getToken(): String? {
         return sharedPreferences.getString(AUTH_TOKEN, "")
     }
 
+    //remember user
+    fun rememberStatus(): Boolean {
+        return sharedPreferences.getBoolean(REMEMBER_USER, false)
+    }
+
+    fun setRememberUser(status: Boolean) {
+        editor.putBoolean(REMEMBER_USER, status)
+        editor.apply()
+        editor.commit()
+
+    }
 }

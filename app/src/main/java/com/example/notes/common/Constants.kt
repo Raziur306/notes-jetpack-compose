@@ -9,5 +9,7 @@ object Constants {
 
     //shared pref
     const val AUTH_TOKEN = "token"
+    const val REMEMBER_USER="remember_user"
+    //token
     const val BEARER = "Bearer "
 }
