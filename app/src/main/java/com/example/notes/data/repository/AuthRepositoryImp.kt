@@ -4,7 +4,7 @@ import com.example.notes.data.remote.NotesApi
 import com.example.notes.data.remote.UserApi
 import com.example.notes.data.remote.dto.SignInDto
 import com.example.notes.data.remote.dto.RegisterDto
-import com.example.notes.data.repository.model.AuthModel
+import com.example.notes.domain.model.AuthModel
 import com.example.notes.domain.repository.AuthRepository
 import retrofit2.Response
 import javax.inject.Inject

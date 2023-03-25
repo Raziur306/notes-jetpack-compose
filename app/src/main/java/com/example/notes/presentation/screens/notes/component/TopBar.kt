@@ -1,4 +1,4 @@
-package com.example.notes.presentation.screens.home.component
+package com.example.notes.presentation.screens.notes.component
 
 
 import androidx.compose.foundation.Image

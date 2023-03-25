@@ -1,7 +1,7 @@
 package com.example.notes.domain.use_case.notes
 
 import com.example.notes.common.NetworkResponse
-import com.example.notes.data.remote.dto.NoteDto
+import com.example.notes.domain.model.Note
 import com.example.notes.domain.repository.NotesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 
 class NotesUseCase @Inject constructor(private val repository: NotesRepository) {
-    operator fun invoke(): Flow<NetworkResponse<List<NoteDto>>> = flow {
+    operator fun invoke(): Flow<NetworkResponse<List<Note>>> = flow {
         try {
             emit(NetworkResponse.Loading())
             val response = repository.getNotes()

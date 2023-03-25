@@ -1,9 +1,7 @@
-package com.example.notes.domain.use_case.new_note
+package com.example.notes.domain.use_case.delete_note
 
 import android.util.Log
 import com.example.notes.common.NetworkResponse
-import com.example.notes.data.remote.dto.CreateNoteDto
-import com.example.notes.domain.model.Note
 import com.example.notes.domain.model.NoteModel
 import com.example.notes.domain.repository.NotesRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,11 +11,11 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class NewNoteUseCase @Inject constructor(private val notesRepository: NotesRepository) {
-    operator fun invoke(body: CreateNoteDto): Flow<NetworkResponse<NoteModel>> = flow {
+class DeleteNoteUseCase @Inject constructor(private val repository: NotesRepository) {
+    operator fun invoke(noteId: String): Flow<NetworkResponse<NoteModel>> = flow {
         try {
             emit(NetworkResponse.Loading())
-            val response = notesRepository.createNote(body = body)
+            val response = repository.deleteNote(noteId = noteId)
             if (response!!.isSuccessful && response.body() != null) {
 
                 Log.d("Response", response.body().toString())
@@ -40,7 +38,8 @@ class NewNoteUseCase @Inject constructor(private val notesRepository: NotesRepos
 
         } catch (e: IOException) {
             emit(NetworkResponse.Error("Check your internet connection"))
+        } catch (e: Exception) {
+            emit(NetworkResponse.Error(e.localizedMessage ?: "An unexpected error occurred."))
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package com.example.notes.presentation.screens.sign_up
 
-import com.example.notes.data.repository.model.AuthModel
+import com.example.notes.domain.model.AuthModel
 
 data class SignUpState(
     val isLoading: Boolean = false,

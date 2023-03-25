@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.notes.presentation.graphs.Graph
+import com.example.notes.presentation.graphs.notes.NotesRoutes
 import com.example.notes.presentation.screens.sign_in.component.SignInScreen
 import com.example.notes.presentation.screens.sign_up.component.SignUpScreen
 
@@ -35,7 +36,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavController, context: Context)
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     )
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(NotesRoutes.NotesScreen.route)
                 })
         }
         composable(route = AuthRoutes.SignUpScreen.route) {

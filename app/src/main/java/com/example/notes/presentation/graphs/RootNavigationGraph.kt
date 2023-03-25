@@ -6,7 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.notes.presentation.graphs.auth.authNavGraph
-import com.example.notes.presentation.screens.home.component.HomeScreen
+import com.example.notes.presentation.graphs.notes.NotesRoutes
+import com.example.notes.presentation.graphs.notes.notesNavGraph
 import com.example.notes.presentation.splash.component.SplashScreen
 
 
@@ -18,13 +19,13 @@ fun RootNavigationGraph(navHostController: NavHostController, context: Context) 
         startDestination = Graph.SPLASH
     ) {
         authNavGraph(navHostController, context)
-        composable(route = Graph.HOME) {
-            HomeScreen()
-        }
+        notesNavGraph(navHostController = navHostController)
+
         composable(Graph.SPLASH) {
             SplashScreen(navigate = { isUserExist ->
                 if (isUserExist) {
-                    navHostController.navigate(Graph.HOME)
+                    navHostController.popBackStack()
+                    navHostController.navigate(NotesRoutes.NotesScreen.route)
                 } else {
                     navHostController.navigate(Graph.AUTHENTICATION)
                 }

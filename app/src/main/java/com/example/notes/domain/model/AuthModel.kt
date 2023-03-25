@@ -1,4 +1,4 @@
-package com.example.notes.data.repository.model
+package com.example.notes.domain.model
 
 data class AuthModel(
     val message: String,

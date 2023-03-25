@@ -1,4 +1,4 @@
-package com.example.notes.presentation.screens.home
+package com.example.notes.presentation.common
 
 
 import androidx.compose.ui.graphics.vector.ImageVector

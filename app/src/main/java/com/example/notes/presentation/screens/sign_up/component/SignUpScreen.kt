@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.notes.data.repository.model.AuthModel
+import com.example.notes.domain.model.AuthModel
 import com.example.notes.presentation.common.component.Toast
 import com.example.notes.presentation.screens.sign_in.component.LoadingProgress
 import com.example.notes.presentation.screens.sign_up.SignUpState

@@ -1,5 +1,6 @@
 package com.example.notes.presentation.screens.sign_in
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notes.common.NetworkResponse
@@ -22,7 +23,7 @@ class SignInViewModel @Inject constructor(
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState> get() = _state
 
-    fun signIn(email: String, password: String) {
+    fun signIn(email: String, password: String, isChecked: Boolean) {
         val body = SignInDto(email, password);
         signInUseCase(body).onEach { result ->
             when (result) {
@@ -32,6 +33,9 @@ class SignInViewModel @Inject constructor(
 
                 is NetworkResponse.Success -> {
                     preferences.saveToken(result.data!!.token)
+                    if (isChecked) {
+                        preferences.setRememberUser(true)
+                    }
                     _state.value = SignInState(data = result.data)
                 }
 
@@ -42,4 +46,6 @@ class SignInViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+
 }

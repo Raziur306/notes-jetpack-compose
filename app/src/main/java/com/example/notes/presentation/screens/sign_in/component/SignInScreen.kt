@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.notes.data.repository.model.AuthModel
+import com.example.notes.domain.model.AuthModel
 import com.example.notes.presentation.common.component.Toast
 import com.example.notes.presentation.screens.sign_in.SignInState
 import com.example.notes.presentation.screens.sign_in.SignInViewModel
@@ -40,6 +40,8 @@ fun SignInScreen(
     val context: Context = LocalContext.current
     val state: SignInState by viewModel.state.collectAsState()
     val data: AuthModel? = state.data
+
+
 //error message
     if (!state.errorMessage.isNullOrEmpty()) {
         Toast(message = state.errorMessage.toString())
@@ -49,7 +51,7 @@ fun SignInScreen(
         LaunchedEffect(Unit) {
             signInSuccess()
         }
-        Toast(message =data.message ?: "Something went wrong")
+        Toast(message = data.message ?: "Something went wrong")
     }
 
     //component
@@ -71,7 +73,7 @@ fun SignInScreen(
 
 //sign in component
         SignInComponent(onSignInClick = { email, password, isChecked ->
-            viewModel.signIn(email, password)
+            viewModel.signIn(email, password, isChecked)
         })
 
         Row(

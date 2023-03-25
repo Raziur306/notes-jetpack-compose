@@ -2,7 +2,7 @@ package com.example.notes.domain.use_case.sign_up
 
 import com.example.notes.common.NetworkResponse
 import com.example.notes.data.remote.dto.RegisterDto
-import com.example.notes.data.repository.model.AuthModel
+import com.example.notes.domain.model.AuthModel
 import com.example.notes.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
