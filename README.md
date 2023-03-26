@@ -6,6 +6,7 @@ This app is an Android application built using the Android Native Library Jetpac
 * [Retrofit](https://github.com/square/retrofit)
 * [Coroutine](https://github.com/Kotlin/kotlinx.coroutines)
 * [OKHTTP](https://github.com/square/okhttp)
+* [Dagger Hilt](https://github.com/googlecodelabs/android-hilt)
 
 ## Backend
 * [Note Api](https://github.com/Raziur306/Notes-API)
